@@ -1,14 +1,14 @@
 import { Column, Entity, PrimaryColumn } from "typeorm";
 
-@Entity()
+@Entity('account')
 export class Account {
-  @PrimaryColumn()
-  @Column({ length: 40 })
+
+  @PrimaryColumn({ length: 40, nullable: false, type: 'string' })
   username: string;
 
   @Column({ type: "text" })
   password: string;
 
-  @Column()
+  @Column({ type: 'boolean' })
   active: boolean;
 }

@@ -6,8 +6,3 @@ export class UserController {
     return rep.code(200).send("Fazer a autenticacao aqui");
   }
 }
-
-amanha...
-instalar o awilix
-subir o projeto em nuvem
-chamar as instancias aqui dentro

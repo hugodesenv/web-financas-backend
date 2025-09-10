@@ -7,4 +7,5 @@ Steps to run this project:
 3. Run `npm start` command
 
 
-typeorm migration:create ./path-to-migrations-dir/PostRefactoring
+typeorm migration:create ./src/migration/PostRefactoring
+npm run migration:run

@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity('bank_account')
 export class BankAccount {
   @PrimaryGeneratedColumn('increment')
   id: number;
