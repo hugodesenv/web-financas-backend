@@ -9,3 +9,8 @@ Steps to run this project:
 
 typeorm migration:create ./src/migration/PostRefactoring
 npm run migration:run
+
+--
+to do:
+-> jwt
+-> env

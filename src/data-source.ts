@@ -1,6 +1,5 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
-import { Account } from "./domain/entity/Account"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -11,7 +10,7 @@ export const AppDataSource = new DataSource({
     database: "db_web",
     synchronize: false,
     logging: false,
-    entities: [Account],
+    entities: [__dirname + '/../**/*.entity.{js,ts}'],
     migrations: [],
     subscribers: [],
     migrationsTableName: "script"
