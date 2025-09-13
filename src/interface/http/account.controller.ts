@@ -3,9 +3,9 @@ import { HTTPStatus } from "../../shared/utils/constants.utils";
 
 export class AccountController {
   async authenticate(req: FastifyRequest, rep: FastifyReply) {
-    const service = req.diScope.cradle.accountService;
+    const use = req.diScope.cradle.accountService;
 
-    const success = await service.login(
+    const success = await use.login(
       req.body['username'],
       req.body['password']
     );
@@ -14,6 +14,10 @@ export class AccountController {
       return rep.status(HTTPStatus.UNAUTHORIZED).send();
     }
 
-    return rep.status(HTTPStatus.ACCEPTED).send();
+    const token = await rep.jwtSign({
+      username: req.body['username']
+    });
+
+    return rep.status(HTTPStatus.ACCEPTED).send(token);
   }
 }

@@ -8,6 +8,7 @@ export const getContainer = () => {
     injectionMode: 'CLASSIC',
   });
 
+  // ==> account.
   container.register({
     account: asClass(Account).scoped(),
     accountRepository: asClass(AccountRepository).scoped(),
