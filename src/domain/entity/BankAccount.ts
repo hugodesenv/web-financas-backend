@@ -5,6 +5,6 @@ export class BankAccount {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, type: 'varchar' })
   description: string;
 }

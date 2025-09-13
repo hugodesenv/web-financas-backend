@@ -1,18 +1,19 @@
-import { IAppDataSource } from "../../shared/infra/config/app-data-source.config";
-import { Account } from "../../domain/entity/Account";
-
-export interface IAccountRepository {
+import { IAppDataSource } from '../../shared/infra/config/app-data-source.config';
+import { Account } from './../../domain/entity/Account';
+import { BaseRepository, IBaseRepository } from "./base.repository";
+export interface IAccountRepository extends IBaseRepository<Account> {
   tryLogin(username: string, password: string): Promise<boolean>
 }
 
-export class AccountRepository implements IAccountRepository {
-  constructor(private appDataSource: IAppDataSource) { }
-
-  private _repository = async () => (await this.appDataSource.getDataSource()).getRepository(Account);
+export class AccountRepository extends BaseRepository<Account> implements IAccountRepository {
+  constructor(appDataSource: IAppDataSource) {
+    super(appDataSource, Account);
+  }
 
   async tryLogin(username: string, password: string): Promise<boolean> {
     try {
-      await (await this._repository()).findOneOrFail({
+      const respository = await this.repository();
+      await respository.findOneOrFail({
         where: {
           username,
           password,

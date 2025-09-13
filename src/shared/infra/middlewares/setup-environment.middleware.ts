@@ -3,6 +3,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { DataSourceOptions } from "typeorm";
 import { Account } from "../../../domain/entity/Account";
 import { AppDataSource } from "../config/app-data-source.config";
+import { BankAccount } from "../../../domain/entity/BankAccount";
 
 /**
  * Neste middleware eu inicializo a configuração de banco de dados do meu projeto.
@@ -19,7 +20,7 @@ export async function setupEnvironment(req: FastifyRequest, _: FastifyReply) {
     database: "db_web",
     synchronize: false,
     logging: false,
-    entities: [Account],
+    entities: [Account, BankAccount],
     migrations: ["src/migration/*.ts"],
     subscribers: [],
     migrationsTableName: "script"

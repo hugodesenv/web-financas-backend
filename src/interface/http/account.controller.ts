@@ -18,6 +18,6 @@ export class AccountController {
       username: req.body['username']
     });
 
-    return rep.status(HTTPStatus.ACCEPTED).send(token);
+    return rep.status(HTTPStatus.ACCEPTED).send({ token });
   }
 }
