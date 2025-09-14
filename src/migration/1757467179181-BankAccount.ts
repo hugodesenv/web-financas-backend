@@ -7,10 +7,9 @@ export class BankAccount1757467179181 implements MigrationInterface {
             name: 'bank_account',
             columns: [
                 {
-                    name: 'id',
-                    type: 'integer',
+                    name: 'code',
+                    type: 'varchar(7)',
                     isPrimary: true,
-                    generationStrategy: 'increment'
                 },
                 {
                     name: 'description',

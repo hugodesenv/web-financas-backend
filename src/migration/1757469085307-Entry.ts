@@ -50,8 +50,8 @@ export class Entry1757469085307 implements MigrationInterface {
                     },
                     {
                         name: "fk_bank_account",
-                        type: "int",
-                        isNullable: true,
+                        type: "varchar(7)",
+                        isNullable: false,
                     },
                 ],
             })
@@ -71,7 +71,7 @@ export class Entry1757469085307 implements MigrationInterface {
             new TableForeignKey({
                 columnNames: ["fk_bank_account"],
                 referencedTableName: "bank_account",
-                referencedColumnNames: ["id"],
+                referencedColumnNames: ["code"],
             }),
         ]);
     }
