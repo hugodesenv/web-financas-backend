@@ -23,11 +23,6 @@ export class BaseRepository<T> implements IBaseRepository<T> {
       .from(this.entity)
       .where(where);
 
-    for (const whereKey in where) {
-      const value = where[whereKey];
-      sql = sql.andWhere(`${whereKey} = :${whereKey}`, { [whereKey]: value });
-    }
-
     const query = await sql.execute();
 
     return (query.affected ?? 0) > 0;
@@ -39,12 +34,8 @@ export class BaseRepository<T> implements IBaseRepository<T> {
     let sql = repository
       .createQueryBuilder()
       .update(this.entity)
-      .set(data);
-
-    for (const whereKey in where) {
-      const value = where[whereKey];
-      sql = sql.andWhere(`${whereKey} = :${whereKey}`, { [whereKey]: value });
-    }
+      .set(data)
+      .where(where);
 
     const query = await sql.execute();
 
