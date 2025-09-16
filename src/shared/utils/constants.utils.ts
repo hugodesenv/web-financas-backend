@@ -4,3 +4,7 @@ export enum HTTPStatus {
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
 }
+
+export const FRIENDLY_MESSAGE = {
+  "duplicate key value violates unique constraint": "Chave já existente no banco de dados!"
+}

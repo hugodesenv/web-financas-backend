@@ -1,4 +1,4 @@
-import { TBankAccountCreateSchema } from "../../../domain/schemas/bank-account-create.schemas";
+import { TBankAccountCreateSchema } from "../../../domain/schemas/bank-account.schemas";
 import { IBankAccountService } from "../../../domain/services/bank-account.service";
 
 export interface ICreateBankAccountUseCase {
