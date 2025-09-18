@@ -3,11 +3,10 @@ import { BankAccountCreateSchema, BankAccountUpdateSchema, TBankAccountCreateSch
 import { BankAccountController } from "./bank-account.controller";
 
 const controller = new BankAccountController();
-
 const tags = ['Bank account'];
 
 export async function bankAccountRoute(app: FastifyInstance) {
-  app.get('/find-all', {
+  app.get('/', {
     schema: {
       tags,
       description: 'Bank account list',

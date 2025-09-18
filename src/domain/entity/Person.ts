@@ -5,13 +5,13 @@ export class Person {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column({ length: 80, nullable: false })
+  @Column({ length: 80, nullable: false, type: 'varchar' })
   name: string;
 
-  @Column({ length: 80 })
+  @Column({ length: 80, type: 'varchar' })
   nickname: string;
 
-  @Column({ default: true })
+  @Column({ default: false })
   active: boolean;
 
   @Column({ default: false })

@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { fastifyAwilixPlugin } from "@fastify/awilix";
 import fastifyJwt from "@fastify/jwt";
 import fastify, { FastifyReply, FastifyRequest } from "fastify";
@@ -10,6 +11,7 @@ import fastifySwaggerUi from "@fastify/swagger-ui";
 import fastifySwagger from "@fastify/swagger";
 import { bankAccountRoute } from "./interface/http/bank-account.route";
 import { handleExceptionPlugin } from "./shared/infra/plugin/handle-exception.plugin";
+import { personRoute } from "./interface/http/person.route";
 
 export function buildServer(opts = {}) {
   const server = fastify(opts);
@@ -31,7 +33,8 @@ export function buildServer(opts = {}) {
     app.register(accountAuthenticationRoute);
     app.register(function (app) {
       app.addHook('onRequest', authenticateMiddleware);
-      app.register(bankAccountRoute, { prefix: '/bank-account' })
+      app.register(bankAccountRoute, { prefix: '/bank-account' });
+      app.register(personRoute, { prefix: '/person' });
     });
   }, { prefix: '/api' });
 
