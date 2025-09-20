@@ -7,3 +7,4 @@ process.env.JWT_SECRET = 'test-secret-key';
 
 // Timeout global para testes
 jest.setTimeout(10000);
+

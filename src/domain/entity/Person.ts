@@ -11,15 +11,15 @@ export class Person {
   @Column({ length: 80, type: 'varchar' })
   nickname: string;
 
-  @Column({ default: false })
+  @Column({ default: false, type: 'boolean' })
   active: boolean;
 
-  @Column({ default: false })
+  @Column({ default: false, type: 'boolean' })
   is_client: boolean;
 
-  @Column({ default: false })
+  @Column({ default: false, type: 'boolean' })
   is_company: boolean;
 
-  @Column({ default: false })
+  @Column({ default: false, type: 'boolean' })
   is_employee: boolean;
 }

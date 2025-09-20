@@ -1,21 +1,27 @@
-import "reflect-metadata";
 import { fastifyAwilixPlugin } from "@fastify/awilix";
 import fastifyJwt from "@fastify/jwt";
-import fastify, { FastifyReply, FastifyRequest } from "fastify";
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUi from "@fastify/swagger-ui";
+import 'dotenv/config';
+import fastify from "fastify";
+import mercurius from "mercurius";
+import "reflect-metadata";
+import { resolvers } from "./graph/resolver.graph";
+import { schema } from "./graph/types.graph";
 import { accountAuthenticationRoute } from "./interface/http/account.route";
+import { bankAccountRoute } from "./interface/http/bank-account.route";
+import { personRoute } from "./interface/http/person.route";
 import { getContainer } from "./shared/infra/config/di/container.config";
 import { authenticateMiddleware } from "./shared/infra/middlewares/authenticate.middleware";
 import { setupEnvironment } from "./shared/infra/middlewares/setup-environment.middleware";
-import 'dotenv/config';
-import fastifySwaggerUi from "@fastify/swagger-ui";
-import fastifySwagger from "@fastify/swagger";
-import { bankAccountRoute } from "./interface/http/bank-account.route";
 import { handleExceptionPlugin } from "./shared/infra/plugin/handle-exception.plugin";
-import { personRoute } from "./interface/http/person.route";
 
 export function buildServer(opts = {}) {
   const server = fastify(opts);
   const container = getContainer();
+
+  // config graphQL.
+  server.register(mercurius, { schema, resolvers, graphiql: true });
 
   server.register(fastifyAwilixPlugin, { container, disposeOnClose: true, disposeOnResponse: true });
   server.register(fastifyJwt, { secret: process.env.SECRET_JWT }); // afins de teste, nao inclui tempo de validade (ainda).
