@@ -6,8 +6,8 @@ import 'dotenv/config';
 import fastify from "fastify";
 import mercurius from "mercurius";
 import "reflect-metadata";
-import { resolvers } from "./graph/resolver.graph";
-import { schema } from "./graph/types.graph";
+import { resolvers } from "./application/graph/resolver.graph";
+import { schema } from "./application/graph/types.graph";
 import { accountAuthenticationRoute } from "./interface/http/account.route";
 import { bankAccountRoute } from "./interface/http/bank-account.route";
 import { personRoute } from "./interface/http/person.route";
@@ -19,9 +19,6 @@ import { handleExceptionPlugin } from "./shared/infra/plugin/handle-exception.pl
 export function buildServer(opts = {}) {
   const server = fastify(opts);
   const container = getContainer();
-
-  // config graphQL.
-  server.register(mercurius, { schema, resolvers, graphiql: true });
 
   server.register(fastifyAwilixPlugin, { container, disposeOnClose: true, disposeOnResponse: true });
   server.register(fastifyJwt, { secret: process.env.SECRET_JWT }); // afins de teste, nao inclui tempo de validade (ainda).
@@ -37,10 +34,14 @@ export function buildServer(opts = {}) {
   server.register((app) => {
     app.addHook('onRequest', setupEnvironment);
     app.register(accountAuthenticationRoute);
+
     app.register(function (app) {
       app.addHook('onRequest', authenticateMiddleware);
       app.register(bankAccountRoute, { prefix: '/bank-account' });
       app.register(personRoute, { prefix: '/person' });
+
+      // config graphQL.
+      app.register(mercurius, { schema, resolvers, graphiql: true });
     });
   }, { prefix: '/api' });
 

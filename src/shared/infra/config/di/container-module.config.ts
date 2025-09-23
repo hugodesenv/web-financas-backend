@@ -10,8 +10,8 @@ declare module '@fastify/awilix' {
   interface Cradle {
     appDataSource: AppDataSource,
     accountService: AccountService,
-
     bankAccountService: BankAccountService,
+
     createBankAccountUseCase: CreateBankAccountUseCase,
     deleteBankAccountUseCase: DeleteBankAccountUseCase,
     updateBankAccountUseCase: UpdateBankAccountUseCase,

@@ -7,10 +7,15 @@ export interface IBankAccountService {
   delete(code: string): Promise<boolean>;
   findAll(): Promise<BankAccount[]>;
   update(data: TBankAccountUpdateSchema): Promise<boolean>;
+  findByCode(code: string): Promise<BankAccount>;
 }
 
 export class BankAccountService implements IBankAccountService {
   constructor(private bankAccountRepository: IBankAccountRepository) { }
+
+  async findByCode(code: string): Promise<BankAccount> {
+    return await this.bankAccountRepository.findByCode(code);
+  }
 
   async delete(code: string): Promise<boolean> {
     return await this.bankAccountRepository.delete({ code });

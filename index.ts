@@ -7,12 +7,12 @@ const config = {
 }
 
 const server = buildServer({
-  logger: {
+  /*logger: {
     level: 'info',
     transport: {
       target: 'pino-pretty'
     }
-  }
+  }*/
 });
 
 server.listen(config, (err: any, address: any) => {
@@ -20,4 +20,6 @@ server.listen(config, (err: any, address: any) => {
     server.log.error(err)
     process.exit(1)
   }
+
+  console.log(`🚀 Server started > Port ${config.port}`)
 });

@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc -p tsconfig.json",
-    "dev": "npx tsx index.ts",
+    "dev": "tsx watch index.ts",
     "start": "ts-node src/index.ts",
     "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d src/data-source.ts"
   },
