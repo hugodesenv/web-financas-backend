@@ -4,6 +4,7 @@ import { DataSourceOptions } from "typeorm";
 import { Account } from "../../../domain/entity/Account";
 import { AppDataSource } from "../config/app-data-source.config";
 import { BankAccount } from "../../../domain/entity/BankAccount";
+import { Person } from "../../../domain/entity/Person";
 
 /**
  * Neste middleware eu inicializo a configuração de banco de dados do meu projeto.
@@ -20,7 +21,11 @@ export async function setupEnvironment(req: FastifyRequest, _: FastifyReply) {
     database: "db_web",
     synchronize: false,
     logging: false,
-    entities: [Account, BankAccount],
+    entities: [
+      Account,
+      BankAccount,
+      Person
+    ],
     migrations: ["src/migration/*.ts"],
     subscribers: [],
     migrationsTableName: "script"
