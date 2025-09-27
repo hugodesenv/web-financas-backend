@@ -6,8 +6,6 @@ import 'dotenv/config';
 import fastify from "fastify";
 import mercurius from "mercurius";
 import "reflect-metadata";
-import { resolvers } from "./application/graph/resolver.graph";
-import { schema } from "./application/graph/types.graph";
 import { accountAuthenticationRoute } from "./interface/http/account.route";
 import { bankAccountRoute } from "./interface/http/bank-account.route";
 import { personRoute } from "./interface/http/person.route";
@@ -15,6 +13,8 @@ import { getContainer } from "./shared/infra/config/container.config";
 import { authenticateMiddleware } from "./shared/infra/middlewares/authenticate.middleware";
 import { setupEnvironment } from "./shared/infra/middlewares/setup-environment.middleware";
 import { handleExceptionPlugin } from "./shared/infra/plugin/handle-exception.plugin";
+import { resolvers } from "./application/graph/resolvers";
+import { schema } from "./application/graph/schema/schema.graph";
 
 export function buildServer(opts = {}) {
   const server = fastify(opts);
