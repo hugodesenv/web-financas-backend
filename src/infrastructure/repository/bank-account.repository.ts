@@ -3,7 +3,7 @@ import { IAppDataSource } from "../../shared/infra/config/app-data-source.config
 import { BaseRepository, IBaseRepository } from "./base.repository";
 
 export interface IBankAccountRepository extends IBaseRepository<BankAccount> {
-  findByCode(code: string): Promise<BankAccount>;
+  findByCode(code: string): Promise<BankAccount | null>;
 }
 
 export class BankAccountRepository extends BaseRepository<BankAccount> implements IBankAccountRepository {

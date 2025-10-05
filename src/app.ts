@@ -6,6 +6,8 @@ import 'dotenv/config';
 import fastify from "fastify";
 import mercurius from "mercurius";
 import "reflect-metadata";
+import { buildSchema } from "type-graphql";
+import { BankAccountResolver } from "./domain/graphs/bank-account/resolver";
 import { accountAuthenticationRoute } from "./interface/http/account.route";
 import { bankAccountRoute } from "./interface/http/bank-account.route";
 import { personRoute } from "./interface/http/person.route";
@@ -13,12 +15,15 @@ import { getContainer } from "./shared/infra/config/container.config";
 import { authenticateMiddleware } from "./shared/infra/middlewares/authenticate.middleware";
 import { setupEnvironment } from "./shared/infra/middlewares/setup-environment.middleware";
 import { handleExceptionPlugin } from "./shared/infra/plugin/handle-exception.plugin";
-import { resolvers } from "./application/graph/resolvers";
-import { schema } from "./application/graph/schema/schema.graph";
 
-export function buildServer(opts = {}) {
+export async function buildServer(opts = {}) {
   const server = fastify(opts);
   const container = getContainer();
+
+  const schema = await buildSchema({
+    resolvers: [BankAccountResolver],
+
+  });
 
   server.register(fastifyAwilixPlugin, { container, disposeOnClose: true, disposeOnResponse: true });
   server.register(fastifyJwt, { secret: process.env.SECRET_JWT }); // afins de teste, nao inclui tempo de validade (ainda).
@@ -31,7 +36,13 @@ export function buildServer(opts = {}) {
   server.register((app) => {
     app.addHook('onRequest', setupEnvironment);
 
-    server.register(mercurius, { schema, resolvers, graphiql: true });
+    server.register(mercurius, {
+      schema,
+      resolvers: {},
+      graphiql: true,
+      context: (req, _rep) => ({ di: req.diScope.cradle }),
+    });
+
     app.register(accountAuthenticationRoute);
 
     app.register(function (app) {

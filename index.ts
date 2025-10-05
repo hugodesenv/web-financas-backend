@@ -6,16 +6,11 @@ const config = {
   port: parseInt(process.env.API_PORT)
 }
 
-const server = buildServer({
-  /*logger: {
-    level: 'info',
-    transport: {
-      target: 'pino-pretty'
-    }
-  }*/
-});
+const server = await buildServer({});
 
 server.listen(config, (err: any, address: any) => {
+  console.log('Iniciando o servidor... Na porta: ', config.port);
+
   if (err) {
     server.log.error(err)
     process.exit(1)

@@ -7,13 +7,13 @@ export interface IBankAccountService {
   delete(code: string): Promise<boolean>;
   findAll(): Promise<BankAccount[]>;
   update(data: TBankAccountUpdateSchema): Promise<boolean>;
-  findByCode(code: string): Promise<BankAccount>;
+  findByCode(code: string): Promise<BankAccount | null>;
 }
 
 export class BankAccountService implements IBankAccountService {
   constructor(private bankAccountRepository: IBankAccountRepository) { }
 
-  async findByCode(code: string): Promise<BankAccount> {
+  async findByCode(code: string): Promise<BankAccount | null> {
     return await this.bankAccountRepository.findByCode(code);
   }
 
@@ -31,6 +31,7 @@ export class BankAccountService implements IBankAccountService {
   }
 
   async findAll(): Promise<BankAccount[]> {
+    console.log('aqui dentro')
     return await this.bankAccountRepository.findAll();
   }
 }
