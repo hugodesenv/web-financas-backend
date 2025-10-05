@@ -41,7 +41,7 @@ export async function buildServer(opts = {}) {
       schema,
       resolvers: {},
       graphiql: true,
-      context: (req, _rep) => ({ di: req.diScope.cradle }),
+      context: (req, _rep) => ({ di: req.diScope.cradle, jwtVerify: req.jwtVerify }),
     });
 
     app.register(accountAuthenticationRoute);
