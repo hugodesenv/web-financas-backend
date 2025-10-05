@@ -8,6 +8,7 @@ import mercurius from "mercurius";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { BankAccountResolver } from "./domain/graphs/bank-account/resolver";
+import { customAuthChecker } from "./domain/graphs/custom-auth-checker";
 import { accountAuthenticationRoute } from "./interface/http/account.route";
 import { bankAccountRoute } from "./interface/http/bank-account.route";
 import { personRoute } from "./interface/http/person.route";
@@ -22,7 +23,7 @@ export async function buildServer(opts = {}) {
 
   const schema = await buildSchema({
     resolvers: [BankAccountResolver],
-
+    authChecker: customAuthChecker
   });
 
   server.register(fastifyAwilixPlugin, { container, disposeOnClose: true, disposeOnResponse: true });

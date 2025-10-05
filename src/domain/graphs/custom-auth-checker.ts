@@ -1,15 +1,12 @@
-export class CustomAuthChecker implements AuthCheckerInterface<ContextType> {
-  constructor(
-    // Dependency injection
-    private readonly userRepository: Repository<User>,
-  ) { }
+import { AuthChecker } from "type-graphql";
 
-  check({ root, args, context, info }: ResolverData<ContextType>, roles: string[]) {
-    const userId = getUserIdFromToken(context.token);
-    // Use injected service
-    const user = this.userRepository.getById(userId);
+export const customAuthChecker: AuthChecker = ({ root, args, context, info }, roles) => {
+  // Read user from context
+  // and check the user's permission against the `roles` argument
+  // that comes from the '@Authorized' decorator, eg. ["ADMIN", "MODERATOR"]
 
-    // Custom logic, e.g.:
-    return user % 2 === 0;
-  }
-}
+  return false; // or 'false' if access is denied
+};
+
+Anotaçao Hugo:
+Implementar esquema de validaçao.
